@@ -41,7 +41,10 @@ a:focus-visible, button:focus-visible {
 }
 .webgl-scene { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 .cta-flood {
-  position: fixed; inset: 0; z-index: 2; pointer-events: none; opacity: 0;
+  /* ponytail: rendered as a child of <main> (not a body-level sibling like .bg-glow/.webgl-scene), so a
+     positive z-index here would paint above main's static content instead of behind it — negative keeps
+     it behind the CTA copy while still stacking above bg-glow/webgl-scene at the root level */
+  position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0;
   background: linear-gradient(160deg, #e8351a 0%, #fc6220 50%, #ffaa30 100%);
 }
 main { position: relative; z-index: 3; }
@@ -175,6 +178,10 @@ h2 { font-size: clamp(34px, 4.5vw, 56px); margin: 18px 0 20px; }
 .cta .sub { color: var(--dim); max-width: 480px; margin: 8px 0 36px; }
 .cta.flooded .sub { color: rgba(255, 255, 255, 0.85); }
 .cta .btn-wa.inverted { background: var(--white); color: var(--orange-deep); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25); }
+/* ponytail: soft shadow gives the white CTA copy a touch more pop against the bright end of the flood gradient */
+.cta.flooded h2,
+.cta.flooded .sub,
+.cta.flooded .site-footer { text-shadow: 0 2px 20px rgba(0, 0, 0, 0.15); }
 
 .site-footer {
   width: 100%; margin-top: 120px; border-top: 1px solid rgba(255, 255, 255, 0.25);

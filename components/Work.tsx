@@ -53,14 +53,14 @@ export default function Work() {
         <h2>{t.work.title}</h2>
       </div>
       <div className="work-track" ref={trackRef}>
-        {PIECES.map((p, i) => (
+        {PIECES.map((p) => (
           <figure className="work-card" key={p.src}>
+            {/* ponytail: cards are mid-page in a pinned section, not above the fold — plain lazy, no priority/eager needed for LCP */}
             <Image
               src={p.src}
               alt={`${p.title} — ${p.tag}`}
               fill
               sizes="(max-width: 767px) 78vw, 460px"
-              loading={i < 2 ? "eager" : "lazy"}
               style={{ objectFit: "cover" }}
             />
             <figcaption className="meta">

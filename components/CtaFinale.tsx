@@ -60,7 +60,7 @@ export default function CtaFinale() {
         </a>
         <footer className="site-footer">
           <a href="#top" className="logo" aria-label="ODOS Creative">
-            <Image src="/brand/logo-white.png" alt="ODOS" width={96} height={24} />
+            <Image src="/brand/logo-white.png" alt="ODOS" width={24} height={24} />
           </a>
           <div className="contacts">
             <a href={`https://wa.me/${WA_NUMBER}`} target="_blank" rel="noopener noreferrer" onClick={trackContact}>
