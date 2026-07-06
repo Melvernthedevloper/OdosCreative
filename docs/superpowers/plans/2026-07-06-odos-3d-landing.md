@@ -16,7 +16,7 @@
 - Default language `id`, toggle to `en`, persisted in `localStorage` key `odos-lang`.
 - All CTAs → `https://wa.me/6282314393503?text=<encoded localized text>` and fire Meta Pixel `Contact`.
 - Pixel ID from `NEXT_PUBLIC_META_PIXEL_ID`; unset ⇒ analytics fully disabled, never throws.
-- Animate only `transform`/`opacity` in CSS/GSAP. Every interactive element has hover, focus-visible, and active states. No `transition: all`.
+- Motion (GSAP/keyframe animation) uses only `transform`/`opacity`; never animate layout properties (width/height/top/left/margin) and never `transition: all`. Short hover transitions on `color`/`border-color`/`box-shadow` for interactive states are permitted. Every interactive element has hover, focus-visible, and active states.
 - `prefers-reduced-motion: reduce` ⇒ no canvas, no Lenis, no scroll pinning, no reveals (content plainly visible). WebGL unavailable ⇒ no canvas, CSS glow fallback remains.
 - Canvas `aria-hidden`, DPR capped at 2, icosphere detail 64 desktop / 32 for viewports < 768px.
 - Working directory for all commands: `/Users/raff.melvern/Documents/melvern-ngoding/odos-creative`. The asset source `../Website Odos/` is read-only — never modify it.
