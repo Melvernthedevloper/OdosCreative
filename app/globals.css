@@ -197,4 +197,6 @@ h2 { font-size: clamp(34px, 4.5vw, 56px); margin: 18px 0 20px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  .cta-flood { display: none; }
+  .cta { background: linear-gradient(160deg, #e8351a 0%, #fc6220 50%, #ffaa30 100%); }
 }

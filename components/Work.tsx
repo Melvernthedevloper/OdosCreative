@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useLang } from "@/components/LanguageProvider";
 import { useReveal } from "@/lib/useReveal";
@@ -15,27 +15,42 @@ const PIECES = [
   { src: "/work/spill-photography.png", title: "Spill Photography", tag: "Branding" },
 ] as const;
 
-const CLIENT_LOGOS = [1, 2, 3, 4, 5, 6, 8, 9, 10] as const;
+const CLIENT_LOGOS = [
+  { n: 1, name: "CASH" },
+  { n: 2, name: "TNOS World" },
+  { n: 3, name: "Sinergi" },
+  { n: 4, name: "Linox Coffee Space" },
+  { n: 5, name: "Universitas Ciputra" },
+  { n: 6, name: "Aoi" },
+  { n: 8, name: "Client brand logo" },
+  { n: 9, name: "Lima Dimensi Berkat" },
+  { n: 10, name: "Gadis Padi" },
+] as const;
 
 export default function Work() {
   const ref = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const { t } = useLang();
+  const [motionOk, setMotionOk] = useState(true);
   useReveal(ref);
+
+  useEffect(() => {
+    setMotionOk(!window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }, []);
 
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
       mm.add("(prefers-reduced-motion: no-preference)", () => {
         const track = trackRef.current!;
-        const getX = () => -(track.scrollWidth - window.innerWidth);
+        const getX = () => Math.min(0, -(track.scrollWidth - window.innerWidth));
         gsap.to(track, {
           x: getX,
           ease: "none",
           scrollTrigger: {
             trigger: track,
             start: "center center",
-            end: () => `+=${-getX()}`,
+            end: () => `+=${-getX() || 1}`,
             pin: true,
             scrub: 1,
             invalidateOnRefresh: true,
@@ -70,7 +85,7 @@ export default function Work() {
           </figure>
         ))}
         <figure className="work-card">
-          <video src="/work/rizz-burger.mp4" muted loop playsInline autoPlay preload="metadata" />
+          <video src="/work/rizz-burger.mp4" muted loop playsInline autoPlay={motionOk} preload="metadata" />
           <figcaption className="meta">
             <strong>Rizz Burger</strong>
             <span>Video</span>
@@ -80,9 +95,9 @@ export default function Work() {
       <div className="container client-strip" data-reveal>
         <p className="label">{t.work.logos}</p>
         <div className="client-grid">
-          {CLIENT_LOGOS.map((n) => (
+          {CLIENT_LOGOS.map(({ n, name }) => (
             <div className="tile" key={n}>
-              <Image src={`/clients/${n}.png`} alt={`Client logo ${n}`} width={160} height={120} />
+              <Image src={`/clients/${n}.png`} alt={`${name} — logo designed by ODOS Creative`} width={160} height={120} />
             </div>
           ))}
         </div>

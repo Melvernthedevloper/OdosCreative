@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { useLang } from "@/components/LanguageProvider";
-import { waHref, WA_NUMBER } from "@/lib/i18n";
+import { waHref } from "@/lib/i18n";
 import { trackContact } from "@/lib/pixel";
 import { gsap, useGSAP } from "@/lib/gsap";
 
@@ -35,10 +35,6 @@ export default function CtaFinale() {
           scrollTrigger: { trigger: ref.current, start: "top 60%" },
         });
       });
-      // Reduced motion: flood visible statically so the section stays branded.
-      mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set(floodRef.current, { opacity: 0.96 });
-      });
     },
     { scope: ref }
   );
@@ -63,7 +59,7 @@ export default function CtaFinale() {
             <Image src="/brand/logo-white.png" alt="ODOS" width={24} height={24} />
           </a>
           <div className="contacts">
-            <a href={`https://wa.me/${WA_NUMBER}`} target="_blank" rel="noopener noreferrer" onClick={trackContact}>
+            <a href={waHref(t)} target="_blank" rel="noopener noreferrer" onClick={trackContact}>
               +62 823 1439 3503
             </a>
             <a href="mailto:Odoscdc@gmail.com">Odoscdc@gmail.com</a>

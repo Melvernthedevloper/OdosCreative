@@ -5,7 +5,7 @@ export function useReveal(ref: React.RefObject<HTMLElement | null>) {
     () => {
       const mm = gsap.matchMedia();
       mm.add("(prefers-reduced-motion: no-preference)", () => {
-        gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
+        gsap.utils.toArray<HTMLElement>("[data-reveal]", ref.current!).forEach((el) => {
           gsap.from(el, {
             y: 44,
             opacity: 0,

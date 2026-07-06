@@ -14,7 +14,7 @@ export default function About() {
     () => {
       const mm = gsap.matchMedia();
       mm.add("(prefers-reduced-motion: no-preference)", () => {
-        gsap.utils.toArray<HTMLElement>("[data-count]").forEach((el) => {
+        gsap.utils.toArray<HTMLElement>("[data-count]", ref.current!).forEach((el) => {
           const target = Number(el.dataset.count);
           gsap.fromTo(
             el,
