@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from "@/components/LanguageProvider";
+import MetaPixel from "@/components/MetaPixel";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -24,7 +27,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="id">
-      <body className={jakarta.variable}>{children}</body>
+      <body className={jakarta.variable}>
+        <LanguageProvider>
+          <MetaPixel />
+          <SmoothScroll />
+          {children}
+        </LanguageProvider>
+      </body>
     </html>
   );
 }
