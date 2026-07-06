@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import Work from "@/components/Work";
 import About from "@/components/About";
+import CtaFinale from "@/components/CtaFinale";
 
 export default function Page() {
   return (
@@ -14,6 +15,7 @@ export default function Page() {
         <Services />
         <Work />
         <About />
+        <CtaFinale />
       </main>
     </>
   );
