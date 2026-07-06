@@ -1,9 +1,14 @@
+import Header from "@/components/Header";
+import Hero from "@/components/Hero";
+
 export default function Page() {
   return (
-    <main>
-      <div className="hero">
-        <h1>ODOS</h1>
-      </div>
-    </main>
+    <>
+      <div className="bg-glow" aria-hidden />
+      <Header />
+      <main>
+        <Hero />
+      </main>
+    </>
   );
 }
