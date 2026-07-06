@@ -1,0 +1,92 @@
+"use client";
+
+import { useRef } from "react";
+import Image from "next/image";
+import { useLang } from "@/components/LanguageProvider";
+import { useReveal } from "@/lib/useReveal";
+import { gsap, useGSAP } from "@/lib/gsap";
+
+const PIECES = [
+  { src: "/work/rubbix.png", title: "Rubbix", tag: "Branding" },
+  { src: "/work/rubbix-beans.png", title: "Rubbix Beans", tag: "Packaging" },
+  { src: "/work/rubbix-coffee.png", title: "Rubbix Coffee", tag: "Packaging" },
+  { src: "/work/shiawase-website.png", title: "Shiawase", tag: "Web Design" },
+  { src: "/work/shiawase-2.png", title: "Shiawase", tag: "Social Media" },
+  { src: "/work/spill-photography.png", title: "Spill Photography", tag: "Branding" },
+] as const;
+
+const CLIENT_LOGOS = [1, 2, 3, 4, 5, 6, 8, 9, 10] as const;
+
+export default function Work() {
+  const ref = useRef<HTMLElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const { t } = useLang();
+  useReveal(ref);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        const track = trackRef.current!;
+        const getX = () => -(track.scrollWidth - window.innerWidth);
+        gsap.to(track, {
+          x: getX,
+          ease: "none",
+          scrollTrigger: {
+            trigger: track,
+            start: "center center",
+            end: () => `+=${-getX()}`,
+            pin: true,
+            scrub: 1,
+            invalidateOnRefresh: true,
+          },
+        });
+      });
+    },
+    { scope: ref }
+  );
+
+  return (
+    <section className="section work-section" id="karya" ref={ref}>
+      <div className="container section-head" data-reveal>
+        <span className="pill">{t.work.label}</span>
+        <h2>{t.work.title}</h2>
+      </div>
+      <div className="work-track" ref={trackRef}>
+        {PIECES.map((p, i) => (
+          <figure className="work-card" key={p.src}>
+            <Image
+              src={p.src}
+              alt={`${p.title} — ${p.tag}`}
+              fill
+              sizes="(max-width: 767px) 78vw, 460px"
+              loading={i < 2 ? "eager" : "lazy"}
+              style={{ objectFit: "cover" }}
+            />
+            <figcaption className="meta">
+              <strong>{p.title}</strong>
+              <span>{p.tag}</span>
+            </figcaption>
+          </figure>
+        ))}
+        <figure className="work-card">
+          <video src="/work/rizz-burger.mp4" muted loop playsInline autoPlay preload="metadata" />
+          <figcaption className="meta">
+            <strong>Rizz Burger</strong>
+            <span>Video</span>
+          </figcaption>
+        </figure>
+      </div>
+      <div className="container client-strip" data-reveal>
+        <p className="label">{t.work.logos}</p>
+        <div className="client-grid">
+          {CLIENT_LOGOS.map((n) => (
+            <div className="tile" key={n}>
+              <Image src={`/clients/${n}.png`} alt={`Client logo ${n}`} width={160} height={120} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
