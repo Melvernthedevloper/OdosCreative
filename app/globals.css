@@ -168,14 +168,19 @@ h2 { font-size: clamp(34px, 4.5vw, 56px); margin: 18px 0 20px; }
 
 .client-strip { margin-top: 90px; }
 .client-strip .label { color: var(--dim); font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 28px; }
-.client-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 16px; }
-.client-grid .tile {
-  background: var(--white); border-radius: 14px; aspect-ratio: 4/3;
-  display: flex; align-items: center; justify-content: center; padding: 18px;
-  transition: transform 0.25s ease;
+.client-marquee { overflow: hidden; }
+.marquee-row { display: flex; gap: 16px; width: max-content; animation: marquee 32s linear infinite; }
+.marquee-row:hover { animation-play-state: paused; }
+@keyframes marquee { to { transform: translateX(calc(-100% / 3)); } }
+.chip {
+  background: #f5efe7; border-radius: 14px; width: 148px; aspect-ratio: 4 / 3;
+  display: flex; align-items: center; justify-content: center; padding: 20px; flex-shrink: 0;
 }
-.client-grid .tile:hover { transform: translateY(-4px); }
-.client-grid img { max-height: 100%; object-fit: contain; }
+.chip img { max-width: 100%; max-height: 100%; object-fit: contain; }
+@media (prefers-reduced-motion: reduce) {
+  .marquee-row { animation: none; width: auto; flex-wrap: wrap; }
+  .chip[aria-hidden="true"] { display: none; } /* duplicates exist only for the loop */
+}
 
 /* project overlay */
 html:has(dialog.project-overlay[open]) { overflow: hidden; } /* native scroll lock (reduced-motion has no Lenis) */

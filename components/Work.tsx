@@ -7,6 +7,7 @@ import { useReveal } from "@/lib/useReveal";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { PROJECTS, type Project } from "@/lib/projects";
 import ProjectOverlay from "@/components/ProjectOverlay";
+import ClientMarquee from "@/components/ClientMarquee";
 
 const FEATURED = PROJECTS.filter((p) => p.featured);
 const STRIP = PROJECTS.filter((p) => !p.featured);
@@ -99,6 +100,8 @@ export default function Work() {
           </button>
         ))}
       </div>
+
+      <ClientMarquee />
 
       <ProjectOverlay project={open} onClose={() => setOpen(null)} />
     </section>
