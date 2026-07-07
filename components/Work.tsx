@@ -12,6 +12,10 @@ import ClientMarquee from "@/components/ClientMarquee";
 const FEATURED = PROJECTS.filter((p) => p.featured);
 const STRIP = PROJECTS.filter((p) => !p.featured);
 
+// A missing cover falls back to the first gallery image, so a projects.ts
+// entry without an explicit cover still renders instead of crashing.
+const coverOf = (p: Project) => p.cover ?? p.images[0].src;
+
 export default function Work() {
   const ref = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -60,7 +64,7 @@ export default function Work() {
           {FEATURED.map((p) => (
             <button className="featured-card" key={p.slug} onClick={() => setOpen(p)}>
               <Image
-                src={p.cover!}
+                src={coverOf(p)}
                 alt={`${p.title} — ${t.work.categories[p.category]}`}
                 fill
                 sizes="(max-width: 1024px) 92vw, 912px"
@@ -86,7 +90,7 @@ export default function Work() {
             ) : (
               /* ponytail: cards are mid-page in a pinned section, not above the fold — plain lazy is fine for LCP */
               <Image
-                src={p.cover!}
+                src={coverOf(p)}
                 alt={`${p.title} — ${t.work.categories[p.category]}`}
                 fill
                 sizes="(max-width: 767px) 78vw, 460px"
