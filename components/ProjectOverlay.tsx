@@ -9,6 +9,7 @@ import { trackViewContent } from "@/lib/pixel";
 
 export default function ProjectOverlay({ project, onClose }: { project: Project | null; onClose: () => void }) {
   const ref = useRef<HTMLDialogElement>(null);
+  const closing = useRef(false);
   const [zoom, setZoom] = useState<GalleryImage | null>(null);
   const [zoomedIn, setZoomedIn] = useState(false);
   const { lang, t } = useLang();
@@ -17,6 +18,7 @@ export default function ProjectOverlay({ project, onClose }: { project: Project 
     const dialog = ref.current;
     if (!project || !dialog) return;
     dialog.showModal();
+    closing.current = false; // re-arm the close guard each open
     dialog.scrollTop = 0;
     lenisRef.current?.stop();
     // Back button (mobile) closes the overlay instead of leaving the site.
@@ -33,7 +35,13 @@ export default function ProjectOverlay({ project, onClose }: { project: Project 
 
   // Every UI close goes through history.back() so the pushed entry is
   // consumed; the popstate handler does the actual dialog.close().
-  const requestClose = () => history.back();
+  // history.back() resolves async, so guard against a re-entrant second
+  // call (double-click) popping past our entry and leaving the site.
+  const requestClose = () => {
+    if (closing.current) return;
+    closing.current = true;
+    history.back();
+  };
 
   if (!project) return null;
 
