@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
-import type { GalleryImage, Project } from "@/lib/projects";
+import type { Project } from "@/lib/projects";
 import { useLang } from "@/components/LanguageProvider";
 import { lenisRef } from "@/lib/scrollState";
 import { trackViewContent } from "@/lib/pixel";
@@ -10,8 +10,6 @@ import { trackViewContent } from "@/lib/pixel";
 export default function ProjectOverlay({ project, onClose }: { project: Project | null; onClose: () => void }) {
   const ref = useRef<HTMLDialogElement>(null);
   const closing = useRef(false);
-  const [zoom, setZoom] = useState<GalleryImage | null>(null);
-  const [zoomedIn, setZoomedIn] = useState(false);
   const { lang, t } = useLang();
 
   useEffect(() => {
@@ -50,19 +48,10 @@ export default function ProjectOverlay({ project, onClose }: { project: Project 
       ref={ref}
       className="project-overlay"
       aria-label={project.title}
-      onClose={() => {
-        setZoom(null);
-        setZoomedIn(false);
-        onClose();
-      }}
+      onClose={onClose}
       onCancel={(e) => {
-        e.preventDefault(); // Esc: close zoom first, dialog second
-        if (zoom) {
-          setZoom(null);
-          setZoomedIn(false);
-        } else {
-          requestClose();
-        }
+        e.preventDefault(); // Esc routes through requestClose so the history entry is consumed
+        requestClose();
       }}
       onClick={(e) => {
         if (e.target === e.currentTarget) requestClose(); // backdrop click
@@ -80,30 +69,12 @@ export default function ProjectOverlay({ project, onClose }: { project: Project 
         <div className="overlay-gallery">
           {project.video && <video src={project.video} muted loop playsInline controls preload="metadata" />}
           {project.images.map((img) => (
-            <button className="gallery-item" key={img.src} onClick={() => setZoom(img)} aria-label={t.work.zoom}>
+            <div className="gallery-item" key={img.src}>
               <Image src={img.src} alt={project.title} width={img.w} height={img.h} sizes="(max-width: 960px) 92vw, 880px" />
-            </button>
+            </div>
           ))}
         </div>
       </div>
-      {zoom && (
-        <div className="zoom-layer">
-          <button
-            className="overlay-close"
-            onClick={() => {
-              setZoom(null);
-              setZoomedIn(false);
-            }}
-            aria-label={t.work.close}
-          >
-            ×
-          </button>
-          <div className={`zoom-scroll${zoomedIn ? " zoomed" : ""}`} onClick={() => setZoomedIn((v) => !v)}>
-            {/* separate <Image> so the high-res variant is only fetched on zoom */}
-            <Image src={zoom.src} alt={project.title} width={zoom.w} height={zoom.h} sizes={zoomedIn ? "250vw" : "100vw"} />
-          </div>
-        </div>
-      )}
     </dialog>
   );
 }

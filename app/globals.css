@@ -203,16 +203,8 @@ dialog.project-overlay::backdrop { background: rgba(10, 9, 8, 0.7); backdrop-fil
 .overlay-head p { color: var(--dim); max-width: 640px; }
 .overlay-gallery { display: grid; gap: 20px; }
 .overlay-gallery video { width: 100%; border-radius: 14px; }
-.gallery-item { display: block; width: 100%; padding: 0; border-radius: 14px; overflow: hidden; cursor: zoom-in; }
+.gallery-item { display: block; width: 100%; border-radius: 14px; overflow: hidden; }
 .gallery-item img { width: 100%; height: auto; display: block; }
-
-/* fullscreen zoom inside the overlay */
-.zoom-layer { position: fixed; inset: 0; z-index: 5; background: rgba(10, 9, 8, 0.98); }
-.zoom-scroll { height: 100%; overflow: auto; display: grid; place-items: center; cursor: zoom-in; }
-.zoom-scroll img { width: 100%; height: auto; }
-.zoom-scroll.zoomed { cursor: zoom-out; }
-/* ponytail: tap-toggle 250% + native scroll panning; add pinch gestures only if users ask */
-.zoom-scroll.zoomed img { width: 250%; max-width: none; }
 
 /* about */
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }

@@ -29,7 +29,6 @@ export const dict = {
       strip: "Branding & konten",
       logos: "Brand yang kami bentuk",
       close: "Tutup",
-      zoom: "Perbesar gambar",
       categories: { ads: "Performance Ads", consulting: "Konsultasi Digital", branding: "Branding", video: "Video" },
     },
     about: {
@@ -76,7 +75,6 @@ export const dict = {
       strip: "Branding & content",
       logos: "Brands we've shaped",
       close: "Close",
-      zoom: "Zoom image",
       categories: { ads: "Performance Ads", consulting: "Digital Consulting", branding: "Branding", video: "Video" },
     },
     about: {
