@@ -17,6 +17,9 @@ Push to GitHub → import in Vercel. Set env vars:
 
 ## Edit content
 
-All copy (ID + EN) lives in `lib/i18n.ts`. Portfolio pieces and client
-logos are listed at the top of `components/Work.tsx`; images live in
-`public/work/` and `public/clients/`.
+All copy (ID + EN) lives in `lib/i18n.ts`. Projects live in `lib/projects.ts`:
+drop images in `public/work/<slug>/`, add one entry (with each image's pixel
+size), redeploy. Ads/consulting case-study slides are 1920×1080 — export them
+as JPG/PNG **under ~500 KB each**. The two shipped case studies are
+placeholders; replace their slide files with real ones. Client logos live in
+`public/clients/` and are listed in `components/ClientMarquee.tsx`.
