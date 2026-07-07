@@ -48,6 +48,7 @@ export default function ProjectOverlay({ project, onClose }: { project: Project 
       ref={ref}
       className="project-overlay"
       aria-label={project.title}
+      data-lenis-prevent // let wheel/touch scroll the dialog natively instead of being eaten by (stopped) Lenis
       onClose={onClose}
       onCancel={(e) => {
         e.preventDefault(); // Esc routes through requestClose so the history entry is consumed
@@ -58,9 +59,7 @@ export default function ProjectOverlay({ project, onClose }: { project: Project 
       }}
     >
       <div className="overlay-inner">
-        <button className="overlay-close" onClick={requestClose} aria-label={t.work.close}>
-          ×
-        </button>
+        <button className="overlay-close" onClick={requestClose} aria-label={t.work.close} />
         <header className="overlay-head">
           <span className="pill">{t.work.categories[project.category]}</span>
           <h3>{project.title}</h3>

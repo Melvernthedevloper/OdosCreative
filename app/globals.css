@@ -195,8 +195,14 @@ dialog.project-overlay::backdrop { background: rgba(10, 9, 8, 0.7); backdrop-fil
   position: fixed; top: 18px; right: 18px; z-index: 6;
   width: 48px; height: 48px; border-radius: 50%;
   background: rgba(255, 255, 255, 0.08); border: 1px solid var(--hairline);
-  font-size: 26px; line-height: 1; display: flex; align-items: center; justify-content: center;
 }
+/* CSS-drawn cross — always dead-center, no font glyph metrics involved */
+.overlay-close::before, .overlay-close::after {
+  content: ""; position: absolute; top: 50%; left: 50%;
+  width: 18px; height: 2px; border-radius: 1px; background: var(--white);
+}
+.overlay-close::before { transform: translate(-50%, -50%) rotate(45deg); }
+.overlay-close::after { transform: translate(-50%, -50%) rotate(-45deg); }
 .overlay-close:hover { background: rgba(255, 255, 255, 0.16); }
 .overlay-head { margin-bottom: 36px; }
 .overlay-head h3 { font-size: clamp(28px, 5vw, 44px); font-weight: 800; letter-spacing: -0.02em; margin: 14px 0 10px; }
