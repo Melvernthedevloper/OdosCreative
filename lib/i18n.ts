@@ -22,7 +22,15 @@ export const dict = {
         { t: "Marketing Strategy", d: "Strategi pemasaran berbasis data supaya setiap budget bekerja lebih keras." },
       ],
     },
-    work: { label: "Karya", title: "Karya pilihan", logos: "Brand yang kami bentuk" },
+    work: {
+      label: "Karya",
+      title: "Karya pilihan",
+      featured: "Studi kasus",
+      strip: "Branding & konten",
+      logos: "Brand yang kami bentuk",
+      close: "Tutup",
+      categories: { ads: "Performance Ads", consulting: "Konsultasi Digital", branding: "Branding", video: "Video" },
+    },
     about: {
       label: "Tentang",
       title: "Tentang ODOS",
@@ -60,7 +68,15 @@ export const dict = {
         { t: "Marketing Strategy", d: "Data-driven marketing strategy that makes every budget work harder." },
       ],
     },
-    work: { label: "Work", title: "Selected work", logos: "Brands we've shaped" },
+    work: {
+      label: "Work",
+      title: "Selected work",
+      featured: "Case studies",
+      strip: "Branding & content",
+      logos: "Brands we've shaped",
+      close: "Close",
+      categories: { ads: "Performance Ads", consulting: "Digital Consulting", branding: "Branding", video: "Video" },
+    },
     about: {
       label: "About",
       title: "About ODOS",

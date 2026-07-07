@@ -5,33 +5,23 @@ import Image from "next/image";
 import { useLang } from "@/components/LanguageProvider";
 import { useReveal } from "@/lib/useReveal";
 import { gsap, useGSAP } from "@/lib/gsap";
+import { PROJECTS, type Project } from "@/lib/projects";
+import ProjectOverlay from "@/components/ProjectOverlay";
+import ClientMarquee from "@/components/ClientMarquee";
 
-const PIECES = [
-  { src: "/work/rubbix.png", title: "Rubbix", tag: "Branding" },
-  { src: "/work/rubbix-beans.png", title: "Rubbix Beans", tag: "Packaging" },
-  { src: "/work/rubbix-coffee.png", title: "Rubbix Coffee", tag: "Packaging" },
-  { src: "/work/shiawase-website.png", title: "Shiawase", tag: "Web Design" },
-  { src: "/work/shiawase-2.png", title: "Shiawase", tag: "Social Media" },
-  { src: "/work/spill-photography.png", title: "Spill Photography", tag: "Branding" },
-] as const;
+const FEATURED = PROJECTS.filter((p) => p.featured);
+const STRIP = PROJECTS.filter((p) => !p.featured);
 
-const CLIENT_LOGOS = [
-  { n: 1, name: "CASH" },
-  { n: 2, name: "TNOS World" },
-  { n: 3, name: "Sinergi" },
-  { n: 4, name: "Linox Coffee Space" },
-  { n: 5, name: "Universitas Ciputra" },
-  { n: 6, name: "Aoi" },
-  { n: 8, name: "Client brand logo" },
-  { n: 9, name: "Lima Dimensi Berkat" },
-  { n: 10, name: "Gadis Padi" },
-] as const;
+// A missing cover falls back to the first gallery image, so a projects.ts
+// entry without an explicit cover still renders instead of crashing.
+const coverOf = (p: Project) => p.cover ?? p.images[0].src;
 
 export default function Work() {
   const ref = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const { t } = useLang();
   const [motionOk, setMotionOk] = useState(true);
+  const [open, setOpen] = useState<Project | null>(null);
   useReveal(ref);
 
   useEffect(() => {
@@ -67,41 +57,57 @@ export default function Work() {
         <span className="pill">{t.work.label}</span>
         <h2>{t.work.title}</h2>
       </div>
-      <div className="work-track" ref={trackRef}>
-        {PIECES.map((p) => (
-          <figure className="work-card" key={p.src}>
-            {/* ponytail: cards are mid-page in a pinned section, not above the fold — plain lazy, no priority/eager needed for LCP */}
-            <Image
-              src={p.src}
-              alt={`${p.title} — ${p.tag}`}
-              fill
-              sizes="(max-width: 767px) 78vw, 460px"
-              style={{ objectFit: "cover" }}
-            />
-            <figcaption className="meta">
-              <strong>{p.title}</strong>
-              <span>{p.tag}</span>
-            </figcaption>
-          </figure>
-        ))}
-        <figure className="work-card">
-          <video src="/work/rizz-burger.mp4" muted loop playsInline autoPlay={motionOk} preload="metadata" />
-          <figcaption className="meta">
-            <strong>Rizz Burger</strong>
-            <span>Video</span>
-          </figcaption>
-        </figure>
-      </div>
-      <div className="container client-strip" data-reveal>
-        <p className="label">{t.work.logos}</p>
-        <div className="client-grid">
-          {CLIENT_LOGOS.map(({ n, name }) => (
-            <div className="tile" key={n}>
-              <Image src={`/clients/${n}.png`} alt={`${name} — logo designed by ODOS Creative`} width={160} height={120} />
-            </div>
+
+      <div className="container" data-reveal>
+        <p className="label">{t.work.featured}</p>
+        <div className="featured-list">
+          {FEATURED.map((p) => (
+            <button className="featured-card" key={p.slug} onClick={() => setOpen(p)}>
+              <Image
+                src={coverOf(p)}
+                alt={`${p.title} — ${t.work.categories[p.category]}`}
+                fill
+                sizes="(max-width: 1024px) 92vw, 912px"
+                style={{ objectFit: "cover" }}
+              />
+              <span className="meta">
+                <strong>{p.title}</strong>
+                <span>{t.work.categories[p.category]}</span>
+              </span>
+            </button>
           ))}
         </div>
       </div>
+
+      <div className="container" data-reveal>
+        <p className="label">{t.work.strip}</p>
+      </div>
+      <div className="work-track" ref={trackRef}>
+        {STRIP.map((p) => (
+          <button className="work-card" key={p.slug} onClick={() => setOpen(p)}>
+            {p.video ? (
+              <video src={p.video} muted loop playsInline autoPlay={motionOk} preload="metadata" />
+            ) : (
+              /* ponytail: cards are mid-page in a pinned section, not above the fold — plain lazy is fine for LCP */
+              <Image
+                src={coverOf(p)}
+                alt={`${p.title} — ${t.work.categories[p.category]}`}
+                fill
+                sizes="(max-width: 767px) 78vw, 460px"
+                style={{ objectFit: "cover" }}
+              />
+            )}
+            <span className="meta">
+              <strong>{p.title}</strong>
+              <span>{t.work.categories[p.category]}</span>
+            </span>
+          </button>
+        ))}
+      </div>
+
+      <ClientMarquee />
+
+      <ProjectOverlay project={open} onClose={() => setOpen(null)} />
     </section>
   );
 }
