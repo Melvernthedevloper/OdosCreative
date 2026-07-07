@@ -10,3 +10,8 @@ export function trackContact(): void {
   if (!PIXEL_ID) return;
   window.fbq?.("track", "Contact");
 }
+
+export function trackViewContent(name: string): void {
+  if (!PIXEL_ID) return;
+  window.fbq?.("track", "ViewContent", { content_name: name });
+}
