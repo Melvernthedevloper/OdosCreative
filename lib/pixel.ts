@@ -1,4 +1,5 @@
-export const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "";
+// ODOS Creative pixel ("Logo Landing Page", 1262641055984963); env var overrides.
+export const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || "1262641055984963";
 
 declare global {
   interface Window {
