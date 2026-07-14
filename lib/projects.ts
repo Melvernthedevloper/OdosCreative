@@ -61,8 +61,8 @@ export const PROJECTS: Project[] = [
     category: "branding",
     cover: "/work/rubbix/packaging.png",
     images: [
-      { src: "/work/rubbix/packaging.png", w: 1080, h: 1440 },
       { src: "/work/rubbix/beans.png", w: 1080, h: 1440 },
+      { src: "/work/rubbix/packaging.png", w: 1080, h: 1440 },
     ],
     description: {
       id: "Identitas brand dan desain kemasan untuk Rubbix Coffee.",
@@ -75,9 +75,9 @@ export const PROJECTS: Project[] = [
     category: "branding",
     cover: "/work/shiawase/website.png",
     images: [
-      { src: "/work/shiawase/website.png", w: 1080, h: 1440 },
-      { src: "/work/shiawase/mascot.png", w: 1080, h: 1440 },
       { src: "/work/shiawase/lanyard.png", w: 1080, h: 1440 },
+      { src: "/work/shiawase/mascot.png", w: 1080, h: 1440 },
+      { src: "/work/shiawase/website.png", w: 1080, h: 1440 },
     ],
     description: {
       id: "Identitas brand, maskot, dan desain web untuk Shiawase.",
