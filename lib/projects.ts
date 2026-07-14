@@ -73,7 +73,7 @@ export const PROJECTS: Project[] = [
     slug: "shiawase",
     title: "Shiawase",
     category: "branding",
-    cover: "/work/shiawase/website.png",
+    cover: "/work/shiawase/lanyard.png",
     images: [
       { src: "/work/shiawase/lanyard.png", w: 1080, h: 1440 },
       { src: "/work/shiawase/mascot.png", w: 1080, h: 1440 },
