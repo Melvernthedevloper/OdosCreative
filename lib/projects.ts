@@ -59,11 +59,10 @@ export const PROJECTS: Project[] = [
     slug: "rubbix",
     title: "Rubbix",
     category: "branding",
-    cover: "/work/rubbix/rubbix.png",
+    cover: "/work/rubbix/packaging.png",
     images: [
-      { src: "/work/rubbix/rubbix.png", w: 1080, h: 1440 },
-      { src: "/work/rubbix/rubbix-beans.png", w: 1080, h: 1440 },
-      { src: "/work/rubbix/rubbix-coffee.png", w: 1080, h: 1440 },
+      { src: "/work/rubbix/packaging.png", w: 1080, h: 1440 },
+      { src: "/work/rubbix/beans.png", w: 1080, h: 1440 },
     ],
     description: {
       id: "Identitas brand dan desain kemasan untuk Rubbix Coffee.",
@@ -74,14 +73,15 @@ export const PROJECTS: Project[] = [
     slug: "shiawase",
     title: "Shiawase",
     category: "branding",
-    cover: "/work/shiawase/shiawase-website.png",
+    cover: "/work/shiawase/website.png",
     images: [
-      { src: "/work/shiawase/shiawase-website.png", w: 1080, h: 1440 },
-      { src: "/work/shiawase/shiawase-2.png", w: 1080, h: 1440 },
+      { src: "/work/shiawase/website.png", w: 1080, h: 1440 },
+      { src: "/work/shiawase/mascot.png", w: 1080, h: 1440 },
+      { src: "/work/shiawase/lanyard.png", w: 1080, h: 1440 },
     ],
     description: {
-      id: "Desain web dan konten sosial media untuk Shiawase.",
-      en: "Web design and social media content for Shiawase.",
+      id: "Identitas brand, maskot, dan desain web untuk Shiawase.",
+      en: "Brand identity, mascot, and web design for Shiawase.",
     },
   },
   {
