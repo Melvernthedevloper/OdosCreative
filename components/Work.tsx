@@ -63,13 +63,15 @@ export default function Work() {
         <div className="featured-list">
           {FEATURED.map((p) => (
             <button className="featured-card" key={p.slug} onClick={() => setOpen(p)}>
-              <Image
-                src={coverOf(p)}
-                alt={`${p.title} — ${t.work.categories[p.category]}`}
-                fill
-                sizes="(max-width: 1024px) 92vw, 912px"
-                style={{ objectFit: "cover" }}
-              />
+              <span className="frame">
+                <Image
+                  src={coverOf(p)}
+                  alt={`${p.title} — ${t.work.categories[p.category]}`}
+                  fill
+                  sizes="(max-width: 1024px) 92vw, 912px"
+                  style={{ objectFit: "cover" }}
+                />
+              </span>
               <span className="meta">
                 <strong>{p.title}</strong>
                 <span>{t.work.categories[p.category]}</span>
